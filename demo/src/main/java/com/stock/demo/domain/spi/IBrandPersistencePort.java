@@ -1,0 +1,16 @@
+package com.stock.demo.domain.spi;
+
+import com.stock.demo.domain.model.Brand;
+
+import java.util.List;
+
+public interface IBrandPersistencePort {
+    void createBrand(Brand brand);
+    Brand getBrandById(Long id);
+    Brand getBrandByName(String name);
+    boolean brandNameExists(String categoryName);
+    boolean brandIdExists(Long id);
+    List<Brand> getBrands();
+    void updateBrand(Brand brand);
+    void deleteBrand(Long id);
+}

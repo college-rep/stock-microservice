@@ -1,0 +1,17 @@
+package com.stock.demo.infrastructure.output.jpa.mapper;
+
+import com.stock.demo.domain.model.Article;
+import com.stock.demo.infrastructure.output.jpa.entity.ArticleEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+
+import java.util.List;
+
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        unmappedSourcePolicy = ReportingPolicy.IGNORE)
+public interface IArticleEntityMapper {
+    ArticleEntity toArticleEntity(Article article);
+    Article toArticle(ArticleEntity articleEntity);
+    List<Article> toArticles(List<ArticleEntity> articleEntities);
+}

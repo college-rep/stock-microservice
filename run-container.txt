@@ -5,4 +5,6 @@ docker pull gamberfox/stock:0.0.1
 
 docker run -p 8090:8090 -e DB_URL="jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:5432/postgres" -e DB_USERNAME="postgres.tymsvhihcwwzjkrfkyol" -e DB_PASSWORD="supabase.gestion" gamberfox/stock:0.0.1
 
+
+#####el mismo comando excepto por el puerto
 docker run -p 8090:8090 -e DB_URL="jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres" -e DB_USERNAME="postgres.tymsvhihcwwzjkrfkyol" -e DB_PASSWORD="supabase.gestion" gamberfox/stock:0.0.1

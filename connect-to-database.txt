@@ -1,0 +1,11 @@
+
+database -> connect -> direct -> transaction pooler
+
+
+localhost:8090/category/test
+
+
+session pooler
+psql "postgresql://postgres.tymsvhihcwwzjkrfkyol:supabase.gestion@aws-1-us-east-1.pooler.supabase.com:5432/postgres"
+
+aws-1-us-east-1.pooler.supabase.com:5432/postgres

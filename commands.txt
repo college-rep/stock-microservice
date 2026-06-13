@@ -1,7 +1,32 @@
 
 
 
-session pooler
-psql "postgresql://postgres.tymsvhihcwwzjkrfkyol:supabase.gestion@aws-1-us-east-1.pooler.supabase.com:5432/postgres"
 
-aws-1-us-east-1.pooler.supabase.com:5432/postgres
+docker build --no-cache -t gamberfox/stock:0.0.1-SNAPSHOT .
+
+docker push gamberfox/stock:0.0.1-SNAPSHOT
+
+
+#docker run -p 8090:8090 gamberfox/stock
+
+docker run -p 8090:8090 -e DB_URL="jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:5432/postgres" -e DB_USERNAME="postgres.tymsvhihcwwzjkrfkyol" -e DB_PASSWORD="supabase.gestion" gamberfox/stock:0.0.1-SNAPSHOT
+
+
+docker login
+
+# 1. Ensure your image has the correct name (tag)
+docker tag gamberfox/stock:0.0.1-SNAPSHOT gamberfox/stock:0.0.1
+
+# 2. Upload to Docker Hub
+docker push gamberfox/stock:0.0.1
+
+
+
+
+
+
+######upload to GitHub 
+#docker tag stock ghcr.io/GITHUB_USERNAME/REPOSITORY_NAME:TAG
+
+docker tag stock ghcr.io/gamberfox/sd3-group4-ms-stock:latest
+docker push ghcr.io/gamberfox/sd3-group4-ms-stock:latest

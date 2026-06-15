@@ -3,6 +3,7 @@ package com.stock.demo.infrastructure.input.rest;
 import com.stock.demo.application.dto.ArticleRequest;
 import com.stock.demo.application.dto.ArticleResponse;
 import com.stock.demo.application.handler.IArticleHandler;
+import com.stock.demo.domain.model.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.stock.demo.util.ArticleConstants.*;
+import static com.stock.demo.util.CategoryConstants.CATEGORY_DELETED;
 
 @RestController
 @RequestMapping("/article")
@@ -25,8 +27,8 @@ public class ArticleRestController {
 
     @PostMapping("/")
     public ResponseEntity<Map<String, Object>> createArticle(@RequestBody ArticleRequest articleRequest) {
-        articleHandler.createArticle(articleRequest);
-        RestResponse response=new RestResponse(ARTICLE_CREATED, articleRequest);
+        ArticleResponse articleResponse= articleHandler.createArticle(articleRequest);
+        RestResponse response=new RestResponse(ARTICLE_CREATED, articleResponse);
         return new ResponseEntity<>(response.getResponse(), HttpStatus.CREATED);
     }
 
@@ -51,6 +53,15 @@ public class ArticleRestController {
         articleHandler.updateArticle(articleRequest);
         RestResponse response=new RestResponse(ARTICLE_UPDATED, articleRequest);
         return new ResponseEntity<>(response.getResponse(), HttpStatus.CREATED);
+    }
+    @DeleteMapping("/")
+    public ResponseEntity<Map<String, Object>> deleteArticle(
+            @RequestParam(defaultValue = "0") Long id
+    ){
+        articleHandler.deleteArticle(id);
+        RestResponse response= new RestResponse(ARTICLE_DELETED,id);
+        return new ResponseEntity<>(response.getResponse(),
+                HttpStatus.OK);
     }
 
 //    @GetMapping("/page")

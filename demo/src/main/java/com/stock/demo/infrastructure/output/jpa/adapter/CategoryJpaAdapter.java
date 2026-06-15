@@ -19,8 +19,11 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     private final ICategoryEntityMapper categoryEntityMapper;
 
     @Override
-    public void createCategory(Category category) {
-        categoryRepository.save(categoryEntityMapper.toEntity(category));
+    public Category createCategory(Category category) {
+        CategoryEntity categoryEntity= categoryRepository.save(categoryEntityMapper.toEntity(category));
+        System.out.println("test for jpa adapter");
+        System.out.println(categoryEntity.getId());
+        return categoryEntityMapper.toCategory(categoryEntity);
     }
 
     @Override

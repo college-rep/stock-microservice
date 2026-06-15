@@ -6,7 +6,7 @@ import com.stock.demo.application.dto.CategoryResponse;
 
 import java.util.List;
 public interface ICategoryHandler {
-    void createCategory(CategoryRequest categoryRequest);
+    CategoryResponse createCategory(CategoryRequest categoryRequest);
     CategoryResponse getCategoryResponseById(Long id);
     CategoryResponse getCategoryResponseByName(String id);
     List<CategoryResponse> getCategoryResponses(Boolean ascendingOrder);

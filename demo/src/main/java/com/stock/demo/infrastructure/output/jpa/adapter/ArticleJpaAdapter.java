@@ -15,9 +15,10 @@ public class ArticleJpaAdapter implements IArticlePersistencePort {
     private final IArticleEntityMapper articleEntityMapper;
 
     @Override
-    public void createArticle(Article article) {
+    public Article createArticle(Article article) {
         ArticleEntity articleEntity = articleEntityMapper.toArticleEntity(article);
-        articleRepository.save(articleEntity);
+        articleEntity = articleRepository.save(articleEntity);
+        return articleEntityMapper.toArticle(articleEntity);
     }
 
     @Override
@@ -47,5 +48,9 @@ public class ArticleJpaAdapter implements IArticlePersistencePort {
     public void updateArticle(Article article) {
         ArticleEntity articleEntity = articleEntityMapper.toArticleEntity(article);
         articleRepository.save(articleEntity);
+    }
+    @Override
+    public void deleteArticle(Long id) {
+        articleRepository.deleteById(id);
     }
 }

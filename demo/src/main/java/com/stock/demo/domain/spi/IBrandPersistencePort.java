@@ -5,7 +5,7 @@ import com.stock.demo.domain.model.Brand;
 import java.util.List;
 
 public interface IBrandPersistencePort {
-    void createBrand(Brand brand);
+    Brand createBrand(Brand brand);
     Brand getBrandById(Long id);
     Brand getBrandByName(String name);
     boolean brandNameExists(String categoryName);

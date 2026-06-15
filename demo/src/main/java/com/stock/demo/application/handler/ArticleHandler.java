@@ -7,12 +7,17 @@ import com.stock.demo.application.mapper.IArticleResponseMapper;
 import com.stock.demo.domain.api.IArticleServicePort;
 import com.stock.demo.domain.model.Article;
 import com.stock.demo.domain.usecase.PageResponse;
+import com.stock.demo.infrastructure.input.rest.RestResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.stock.demo.util.ArticleConstants.ARTICLE_CREATED;
 
 
 @Service
@@ -24,9 +29,11 @@ public class ArticleHandler implements IArticleHandler {
     private final IArticleResponseMapper articleResponseMapper;
 
     @Override
-    public void createArticle(ArticleRequest articleRequest) {
+    public ArticleResponse createArticle(ArticleRequest articleRequest) {
         Article article = articleRequestMapper.toArticle(articleRequest);
-        articleServicePort.createArticle(article);
+        article = articleServicePort.createArticle(article);
+        ArticleResponse articleResponse= articleResponseMapper.toArticleResponse(article);
+        return articleResponse;
     }
 
     @Override
@@ -65,4 +72,6 @@ public class ArticleHandler implements IArticleHandler {
         Article article = articleRequestMapper.toArticle(articleRequest);
         articleServicePort.updateArticle(article);
     }
+    @Override
+    public void deleteArticle(Long id){articleServicePort.deleteArticle(id);}
 }

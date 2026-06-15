@@ -18,12 +18,13 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
     private final IBrandRepository brandRepository;
     private final IBrandEntityMapper brandEntityMapper;
     @Override
-    public void createBrand(Brand brand) {
+    public Brand createBrand(Brand brand) {
         if(brandRepository.findByName(brand.getName()).isPresent()) {
             throw new BrandPersistenceException(BRAND_NAME_ALREADY_EXISTS);
         }
         BrandEntity brandEntity = brandEntityMapper.toBrandEntity(brand);
-        brandRepository.save(brandEntity);
+        brandEntity=brandRepository.save(brandEntity);
+        return brandEntityMapper.toBrand(brandEntity);
     }
 
     @Override

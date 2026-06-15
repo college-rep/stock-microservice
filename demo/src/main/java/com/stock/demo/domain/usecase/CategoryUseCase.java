@@ -28,7 +28,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     //we need to communicate what we're receiving with the thing that will
     //go through the domain, and what will be sent to the persistence
     @Override
-    public void createCategory(Category category) {
+    public Category createCategory(Category category) {
         if(category==null){
             List<String> errorList=new ArrayList<>();
             errorList.add(EMPTY_BODY);
@@ -41,7 +41,10 @@ public class CategoryUseCase implements ICategoryServicePort {
             errorList.add(CATEGORY_NAME_ALREADY_EXISTS);
             throw new CategoryUseCaseException(errorList);
         }
-        this.categoryPersistencePort.createCategory(category);
+        category=this.categoryPersistencePort.createCategory(category);
+        System.out.println("test for use case");
+        System.out.println(category.getId());
+        return category;
     }
 
     @Override

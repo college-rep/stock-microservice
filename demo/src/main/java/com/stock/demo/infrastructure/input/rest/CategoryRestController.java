@@ -28,8 +28,10 @@ public class    CategoryRestController {
     //we'll return a response entity of a  Void type because we're not interested
     //showing the user/client anything beyond the creation being made
     public ResponseEntity<Map<String,Object>> createCategory(@RequestBody CategoryRequest categoryRequest) {
-        categoryHandler.createCategory(categoryRequest);
-        CategoryResponse categoryResponse=categoryHandler.getCategoryResponseByName(categoryRequest.getName());
+        CategoryResponse categoryResponse=categoryHandler.createCategory(categoryRequest);
+        System.out.println("test for rest controller");
+        System.out.println(categoryResponse.getId());
+        //CategoryResponse categoryResponse=categoryHandler.getCategoryResponseByName(categoryRequest.getName());
         RestResponse response= new RestResponse(CATEGORY_CREATED,
                 categoryResponse);
         return new ResponseEntity<>(response.getResponse(),

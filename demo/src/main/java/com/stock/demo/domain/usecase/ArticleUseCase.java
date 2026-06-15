@@ -2,6 +2,7 @@ package com.stock.demo.domain.usecase;
 
 import com.stock.demo.domain.api.IArticleServicePort;
 import com.stock.demo.domain.exception.ArticleUseCaseException;
+import com.stock.demo.domain.exception.BrandUseCaseException;
 import com.stock.demo.domain.exception.ResourceNotFoundException;
 import com.stock.demo.domain.model.Article;
 import com.stock.demo.domain.model.Brand;
@@ -31,7 +32,7 @@ public class ArticleUseCase implements IArticleServicePort {
     }
 
     @Override
-    public void createArticle(Article article) {
+    public Article createArticle(Article article) {
         validate(article);
         article.setBrand(brandPersistencePort
                 .getBrandById(article.getBrand().getId()));
@@ -43,7 +44,7 @@ public class ArticleUseCase implements IArticleServicePort {
         categoriesToAdd.sort((a, b) -> a.getName().compareTo(b.getName()));
         article.setCategories(categoriesToAdd);
         article.setId(null);
-        articlePersistencePort.createArticle(article);
+        return this.articlePersistencePort.createArticle(article);
     }
 
     @Override
@@ -63,6 +64,18 @@ public class ArticleUseCase implements IArticleServicePort {
         }
         sortArticles(articles,ascendingOrder,comparator);
         return articles;
+    }
+    public Boolean idExists(Long id) {
+        return this.articlePersistencePort.articleIdExists(id);
+    }
+    @Override
+    public void deleteArticle(Long id) {
+        if(Boolean.FALSE.equals(idExists(id))) {
+            List<String> errorList=new ArrayList<>();
+            errorList.add(CATEGORY_NOT_FOUND);
+            throw new BrandUseCaseException(errorList);
+        }
+        this.articlePersistencePort.deleteArticle(id);
     }
 
     @Override
@@ -221,4 +234,5 @@ public class ArticleUseCase implements IArticleServicePort {
     public Boolean brandIdExists(Long id) {
         return brandPersistencePort.brandIdExists(id);
     }
+
 }

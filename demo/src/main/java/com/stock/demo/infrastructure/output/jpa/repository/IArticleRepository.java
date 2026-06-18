@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface IArticleRepository extends JpaRepository<ArticleEntity, Long> {
     Optional<ArticleEntity> findByName(String brandName);
+    void deleteById(Long id);
     Optional<ArticleEntity> findById(Long id);
 }

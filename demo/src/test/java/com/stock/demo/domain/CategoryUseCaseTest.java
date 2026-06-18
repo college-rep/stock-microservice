@@ -36,10 +36,20 @@ class CategoryUseCaseTest {
 
     @Test
     void testCreateCategory() {
-        Category category=new Category(null,"name","description");
-        categoryUseCase.createCategory(category);
+        // 1. Prepare data
+        Category category = new Category(null, "name", "description");
+        Category savedCategory = new Category(1L, "name", "description");
+
+        // 2. STUB: Define the mock behavior BEFORE calling the method
+        when(categoryPersistencePort.createCategory(any(Category.class)))
+                .thenReturn(savedCategory);
+
+        // 3. EXECUTE: Call the method
+        Category result = categoryUseCase.createCategory(category);
+
+        // 4. VERIFY: Check that the port was called and the result is correct
         verify(categoryPersistencePort, times(1)).createCategory(category);
-        //when(categoryPersistencePort.getCategoryById(anyLong())).thenReturn(category);
+        assertEquals(1L, result.getId());
     }
 
     @Test

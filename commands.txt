@@ -2,9 +2,9 @@
 
 
 
-docker build --no-cache -t gamberfox/stock:0.0.1-SNAPSHOT .
+docker build --no-cache -t gamberfox/stock:0.2 .
 
-docker push gamberfox/stock:0.0.1-SNAPSHOT
+docker push gamberfox/stock:0.2
 
 
 #docker run -p 8090:8090 gamberfox/stock

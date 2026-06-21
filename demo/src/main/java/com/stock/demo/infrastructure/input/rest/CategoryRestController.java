@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,16 +26,26 @@ import static com.stock.demo.util.CategoryConstants.*;
 public class    CategoryRestController {
     //every independence we inject are interfaces
     private final ICategoryHandler categoryHandler;
+    private final Long userId=5L;
+    //logging
+    private static final Logger logger = LoggerFactory.getLogger(ICategoryHandler.class);
     @PostMapping("/")
     //we'll return a response entity of a  Void type because we're not interested
     //showing the user/client anything beyond the creation being made
     public ResponseEntity<Map<String,Object>> createCategory(@RequestBody CategoryRequest categoryRequest) {
         CategoryResponse categoryResponse=categoryHandler.createCategory(categoryRequest);
-        System.out.println("test for rest controller");
-        System.out.println(categoryResponse.getId());
+        //System.out.println("test for rest controller");
+        //System.out.println(categoryResponse.getId());
         //CategoryResponse categoryResponse=categoryHandler.getCategoryResponseByName(categoryRequest.getName());
         RestResponse response= new RestResponse(CATEGORY_CREATED,
                 categoryResponse);
+        logger.atInfo()
+                .setMessage("a category was created")
+                .addKeyValue("userId", userId)
+                .addKeyValue("categoryId", categoryResponse.getId())
+                .addKeyValue("categoryName", categoryResponse.getName())
+                .addKeyValue("categoryDescription", categoryResponse.getDescription())
+                .log();
         return new ResponseEntity<>(response.getResponse(),
         HttpStatus.CREATED);
     }
@@ -69,9 +81,17 @@ public class    CategoryRestController {
     @PutMapping("/")
     public ResponseEntity<Map<String,Object>> updateCategory(
             @RequestBody CategoryRequest categoryRequest) {
-        categoryHandler.updateCategory(categoryRequest);
+        CategoryResponse categoryResponse=categoryHandler.updateCategory(categoryRequest);
         RestResponse response= new RestResponse(CATEGORY_UPDATED,
-                categoryRequest);
+                categoryResponse);
+        logger.atInfo()
+                .setMessage("a category was modified")
+                .addKeyValue("categoryId", categoryResponse.getId())
+                .addKeyValue("old category name", categoryRequest.getName())
+                .addKeyValue("old category description", categoryRequest.getDescription())
+                .addKeyValue("new category name", categoryResponse.getName())
+                .addKeyValue("new category description", categoryResponse.getDescription())
+                .log();
         return new ResponseEntity<>(response.getResponse(),
                 HttpStatus.OK);
     }

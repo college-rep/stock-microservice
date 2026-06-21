@@ -42,8 +42,8 @@ public class CategoryUseCase implements ICategoryServicePort {
             throw new CategoryUseCaseException(errorList);
         }
         category=this.categoryPersistencePort.createCategory(category);
-        System.out.println("test for use case");
-        System.out.println(category.getId());
+        //System.out.println("test for use case");
+        //System.out.println(category.getId());
         return category;
     }
 
@@ -73,7 +73,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public void updateCategory(Category category) {
+    public Category updateCategory(Category category) {
         this.validate(category);
         if(Boolean.TRUE.equals(nameExists(category.getName()))) {
             Category auxCategory=this
@@ -84,7 +84,7 @@ public class CategoryUseCase implements ICategoryServicePort {
                 throw new CategoryUseCaseException(errorList);
             }
         }
-        this.categoryPersistencePort.updateCategory(category);
+        return this.categoryPersistencePort.updateCategory(category);
     }
 
     @Override

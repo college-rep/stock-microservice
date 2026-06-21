@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.5' // Downgraded to a production-stable release
-	id 'io.spring.dependency-management' version '1.1.6' // Aligned version for Spring Boot 3
+	id 'org.springframework.boot' version '4.0.0' // Downgraded to a production-stable release
+	id 'io.spring.dependency-management' version '1.1.7' // Aligned version for Spring Boot 3
 }
 
 group = 'com.stock'
@@ -44,6 +44,7 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' // Houses data-jpa and web test utilities natively
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'net.logstash.logback:logstash-logback-encoder:8.0'
 }
 
 tasks.named('test') {

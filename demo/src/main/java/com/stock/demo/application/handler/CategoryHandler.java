@@ -27,11 +27,11 @@ public class CategoryHandler implements ICategoryHandler{
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
         Category category= categoryRequestMapper.toCategory(categoryRequest);
         category=categoryServicePort.createCategory(category);
-        System.out.println("test for category in response");
-        System.out.println(category.getId());
+        //System.out.println("test for category in categoryHandler, response");
+        //System.out.println(category.getId());
         CategoryResponse categoryResponse=categoryResponseMapper.toCategoryResponse(category);
-        System.out.println("test for category response mapper");
-        System.out.println(categoryResponse.getId());
+        //System.out.println("test for category response mapper in categoryHandler");
+        //System.out.println(categoryResponse.getId());
         return categoryResponse;
     }
 
@@ -57,9 +57,9 @@ public class CategoryHandler implements ICategoryHandler{
     }
 
     @Override
-    public void updateCategory(CategoryRequest categoryRequest) {
+    public CategoryResponse updateCategory(CategoryRequest categoryRequest) {
         Category category= categoryRequestMapper.toCategory(categoryRequest);
-        categoryServicePort.updateCategory(category);
+        return categoryResponseMapper.toCategoryResponse(categoryServicePort.updateCategory(category));
     }
 
     @Override

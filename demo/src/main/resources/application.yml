@@ -24,3 +24,10 @@ cors:
   allowed:
     origin: ${CORS_URL:*}
     # origin: ${CORS_URL:http://localhost:4200}
+logging:
+  file:
+    name: logs/application.json
+  structured:
+    format:
+      console: ecs
+      file: ecs

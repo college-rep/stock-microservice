@@ -1,6 +1,5 @@
 package com.stock.demo.infrastructure.output.jpa.mapper;
 
-
 import com.stock.demo.domain.model.Category;
 import com.stock.demo.infrastructure.output.jpa.entity.CategoryEntity;
 import org.mapstruct.Mapper;

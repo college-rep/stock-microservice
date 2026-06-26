@@ -12,6 +12,6 @@ import java.util.List;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IArticleSaleEntityMapper {
     ArticleSaleEntity toEntity(ArticleSale articleSale);
-    ArticleSale toArticleSale(ArticleSale articleSaleEntity);
-    List<ArticleSale> toArticleSales(List<ArticleSale> articleSaleEntities);
+    ArticleSale toArticleSale(ArticleSaleEntity articleSaleEntity);
+    List<ArticleSale> toArticleSales(List<ArticleSaleEntity> articleSaleEntities);
 }

@@ -12,5 +12,5 @@ public interface IArticleSaleHandler {
     boolean articleSaleIdExists(Long id);
     List<ArticleSaleResponse> getArticleSaleResponses(LocalDateTime startDate, LocalDateTime endDate);
     void deleteArticleSaleById(Long id);
-    void deleteArticleSalesById(LocalDateTime startDate, LocalDateTime endDate);
+    void deleteArticleSalesByDate(LocalDateTime startDate, LocalDateTime endDate);
 }

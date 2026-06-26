@@ -2,10 +2,7 @@ package com.stock.demo.infrastructure.exception;
 
 //import com.emazon.stock_api_service.domain.exception.ArticleUseCaseException;
 //import com.emazon.stock_api_service.domain.exception.BrandUseCaseException;
-import com.stock.demo.domain.exception.ArticleUseCaseException;
-import com.stock.demo.domain.exception.BrandUseCaseException;
-import com.stock.demo.domain.exception.CategoryUseCaseException;
-import com.stock.demo.domain.exception.ResourceNotFoundException;
+import com.stock.demo.domain.exception.*;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +67,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ArticleUseCaseException.class)
     public ResponseEntity<Map<String, Object>> handleArticleUseCaseException(ArticleUseCaseException ex){
+        JsonErrorResponse errorResponse =
+                new JsonErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                        ex.getErrorList());
+        return new ResponseEntity<>(errorResponse.getResponse(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ArticleSaleUseCaseException.class)
+    public ResponseEntity<Map<String, Object>> handleArticleUseCaseException(ArticleSaleUseCaseException ex){
         JsonErrorResponse errorResponse =
                 new JsonErrorResponse(HttpStatus.BAD_REQUEST.value(),
                         ex.getErrorList());

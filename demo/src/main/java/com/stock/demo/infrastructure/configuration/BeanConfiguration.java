@@ -90,6 +90,7 @@ public class BeanConfiguration {
     @Bean
     public IArticleSaleServicePort articleSaleServicePort() {
         return new ArticleSaleUseCase(
-                articleSalePersistencePort());
+                articleSalePersistencePort(),
+                articlePersistencePort());
     }
 }

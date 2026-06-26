@@ -5,6 +5,10 @@ import com.stock.demo.application.dto.ArticleSaleResponse;
 import com.stock.demo.application.mapper.IArticleSaleRequestMapper;
 import com.stock.demo.application.mapper.IArticleSaleResponseMapper;
 import com.stock.demo.domain.api.IArticleSaleServicePort;
+import com.stock.demo.domain.model.ArticleSale;
+
+import com.stock.demo.domain.model.ArticleSale;
+import com.stock.demo.domain.model.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +26,16 @@ public class ArticleSaleHandler implements IArticleSaleHandler{
     private final IArticleSaleResponseMapper articleSaleResponseMapper;
     @Override
     public ArticleSaleResponse createArticleSale(ArticleSaleRequest articleSaleRequest) {
-        return null;
+        ArticleSale articleSale = articleSaleRequestMapper.toArticleSale(articleSaleRequest);
+        articleSale=articleSaleServicePort.createArticleSale(articleSale);
+        ArticleSaleResponse articleSaleResponse = articleSaleResponseMapper.toArticleSaleResponse(articleSale);
+        return articleSaleResponse;
     }
 
     @Override
     public ArticleSaleResponse getArticleSaleResponseById(Long id) {
-        return null;
+        ArticleSale articleSale = articleSaleServicePort.getArticleSaleById(id);
+        return articleSaleResponseMapper.toArticleSaleResponse(articleSale);
     }
 
     @Override
@@ -37,16 +45,20 @@ public class ArticleSaleHandler implements IArticleSaleHandler{
 
     @Override
     public List<ArticleSaleResponse> getArticleSaleResponses(LocalDateTime startDate, LocalDateTime endDate) {
-        return List.of();
+        List<ArticleSale> articleSales = articleSaleServicePort.getArticleSales(startDate,endDate);
+        return articleSales
+                .stream()
+                .map(articleSaleResponseMapper::toArticleSaleResponse)
+                .toList();
     }
 
     @Override
     public void deleteArticleSaleById(Long id) {
-
+        articleSaleServicePort.deleteArticleSaleById(id);
     }
 
     @Override
-    public void deleteArticleSalesById(LocalDateTime startDate, LocalDateTime endDate) {
-
+    public void deleteArticleSalesByDate(LocalDateTime startDate, LocalDateTime endDate) {
+        articleSaleServicePort.deleteArticleSalesByDate(startDate,endDate);
     }
 }

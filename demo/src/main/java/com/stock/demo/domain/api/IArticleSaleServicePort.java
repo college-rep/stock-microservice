@@ -12,5 +12,5 @@ public interface IArticleSaleServicePort {
     ArticleSale getArticleSaleById(Long id);
     List<ArticleSale> getArticleSales(LocalDateTime startDate, LocalDateTime endDate);
     void deleteArticleSaleById(Long id);
-    void deleteArticleSalesById(LocalDateTime startDate, LocalDateTime endDate);
+    void deleteArticleSalesByDate(LocalDateTime startDate, LocalDateTime endDate);
 }

@@ -20,4 +20,13 @@ public interface IArticleSaleRepository extends JpaRepository<ArticleSaleEntity,
     List<ArticleSaleEntity> findBySaleDate(
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate);
+
+    @Query("""
+       DELETE
+       FROM ArticleSaleEntity a
+       WHERE a.saleDate BETWEEN :startDate AND :endDate
+       """)
+    void deleteBySaleDateBetween(
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
 }

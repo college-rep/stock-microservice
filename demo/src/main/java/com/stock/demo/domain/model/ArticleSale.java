@@ -20,5 +20,5 @@ public class ArticleSale {
     private String name;
     private LocalDateTime saleDate;
     private Long amount;
-    private BigDecimal price;
+    private BigDecimal unitPrice;
 }

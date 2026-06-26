@@ -24,9 +24,10 @@ public class ArticleSaleEntity {
     private Long idUser;
     @Column(name = "id_article", nullable = false)
     private Long idArticle;
+    private String name;
     @Column(name = "sale_date", nullable = false)
     private LocalDateTime saleDate;
     private Long amount;
-    @Column(name = "price", precision = 10, scale = 2)
-    private BigDecimal price;
+    @Column(name = "unit_price", precision = 10, scale = 2)
+    private BigDecimal unitPrice;
 }

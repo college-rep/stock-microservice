@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.0.3'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version '4.0.0' // Downgraded to a production-stable release
+	id 'io.spring.dependency-management' version '1.1.7' // Aligned version for Spring Boot 3
 }
 
 group = 'com.stock'
@@ -26,14 +26,25 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	implementation 'org.springframework.boot:spring-boot-starter-web' // Standard web starter name
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// MapStruct integration for Hexagonal Architecture DTO mappings
+	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+	// Upgraded Springdoc to align perfectly with Spring Boot 3.3+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // Houses data-jpa and web test utilities natively
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'net.logstash.logback:logstash-logback-encoder:8.0'
 }
 
 tasks.named('test') {

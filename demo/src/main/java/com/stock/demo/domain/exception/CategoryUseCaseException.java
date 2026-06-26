@@ -1,0 +1,14 @@
+package com.stock.demo.domain.exception;
+
+import java.util.List;
+
+public class CategoryUseCaseException extends RuntimeException {
+    private final List<String> errorList;
+    public CategoryUseCaseException(List<String> errorList) {
+        super("CATEGORY_VALIDATION_ERROR");
+        this.errorList = errorList;
+    }
+    public List<String> getErrorList() {
+        return errorList;
+    }
+}
